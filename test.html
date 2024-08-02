@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
+</head>
+<body>
+    <h1>WebSocket Test</h1>
+    <button onclick="startStream()">Start Stream</button>
+    <button onclick="sendStreamData()">Send Stream Data</button>
+    <button onclick="stopStream()">Stop Stream</button>
+    <div id="messages"></div>
+
+    <script>
+        const socket = io('http://localhost:3000');
+
+        socket.on('connect', () => {
+            console.log('Connected to WebSocket server');
+            addMessage('Connected to WebSocket server');
+        });
+
+        socket.on('streamStarted', (data) => {
+            console.log('Stream started:', data);
+            addMessage('Stream started: ' + data);
+        });
+
+        socket.on('newStreamData', (data) => {
+            console.log('Received stream data:', data);
+            addMessage('Received stream data: ' + JSON.stringify(data));
+        });
+
+        socket.on('streamStopped', (data) => {
+            console.log('Stream stopped:', data);
+            addMessage('Stream stopped: ' + data);
+        });
+
+        function startStream() {
+            socket.emit('startStream', 'Test Stream');
+        }
+
+        function sendStreamData() {
+            socket.emit('streamData', { testData: 'Hello, World!' });
+        }
+
+        function stopStream() {
+            socket.emit('stopStream', 'Test Stream');
+        }
+
+        function addMessage(message) {
+            const messagesDiv = document.getElementById('messages');
+            messagesDiv.innerHTML += '<p>' + message + '</p>';
+        }
+    </script>
+</body>
+</html>

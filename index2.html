@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Streaming Client</title>
+    <style>
+        #streamingSection { display: none; }
+        video { width: 320px; height: 240px; }
+        #logs {
+            height: 150px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        #activeStreams li { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Live Streaming Client</h1>
+
+    <div id="authSection">
+        <h2>Authentication</h2>
+        <form id="loginForm">
+            <input type="text" id="loginUsername" placeholder="Username" required>
+            <input type="password" id="loginPassword" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <form id="registerForm">
+            <input type="text" id="registerUsername" placeholder="Username" required>
+            <input type="password" id="registerPassword" placeholder="Password" required>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <div id="streamingSection">
+        <h2>Welcome, <span id="username"></span>!</h2>
+        <button id="logout">Logout</button>
+
+        <div>
+            <h3>Local Video</h3>
+            <video id="localVideo" autoplay muted></video>
+        </div>
+
+        <div>
+            <h3>Remote Videos</h3>
+            <div id="remoteVideos"></div>
+        </div>
+
+        <button id="startStream">Start Streaming</button>
+        <button id="stopStream">Stop Streaming</button>
+
+        <h3>Active Streams</h3>
+        <ul id="activeStreams"></ul>
+
+        <h3>Logs</h3>
+        <div id="logs"></div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
+    <script src="client.js"></script>
+</body>
+</html>
