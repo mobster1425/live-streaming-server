@@ -10,10 +10,10 @@ import { JwtModule } from '@nestjs/jwt';
 @Module({
     imports: [
         JwtModule.register({
-          secret: 'secret-key', // Replace with your actual secret key
+          secret: 'secret-key', 
           signOptions: { expiresIn: '1h' },
         }),
-        AuthModule, // Import AuthModule if it exports JwtService
+        AuthModule,
       ],
   providers: [StreamingGateway],
 })

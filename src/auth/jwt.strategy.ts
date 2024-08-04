@@ -3,6 +3,11 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException, Logger } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 
+
+
+/**
+ * JWT Strategy for Passport authentication
+ */
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   private logger = new Logger('JwtStrategy');
@@ -45,6 +50,15 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
+
+  
+
+  /**
+   * Validates the payload of a JWT token
+   * @param payload - The decoded JWT payload
+   * @returns The user object if validation is successful
+   * @throws UnauthorizedException if user is not found
+   */
   async validate(payload: any) {
     this.logger.debug(`Validating payload: ${JSON.stringify(payload)}`);
     const user = await this.usersService.findOne(payload.username);
